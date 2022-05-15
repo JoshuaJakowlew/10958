@@ -75,12 +75,13 @@ struct Node
 
 struct Solution
 {
-    Solution(std::string const & digits, int maxsplits, double goal)
+    Solution(std::string const & digits, int maxsplits, double goal, float verbose = false)
         : digits(digits)
         , maxsplits(maxsplits)
         , goal(goal)
         , nodes(digits.size() * 2 - 1)
         , root(nodes.front())
+        , verbose(verbose)
     {
     }
 
@@ -88,7 +89,7 @@ struct Solution
     {
         double v = root.getValue();
         double e = std::fabs(v - goal);
-        if (e <= bestError)
+        if (verbose ? (e <= bestError) : (e < bestError))
         {
             bestError = e;
             std::cout << root << " = " << root.getValue() << std::endl;
@@ -189,6 +190,8 @@ struct Solution
     Node & root;
     int lastSplitOffset;
     int nodesUsed;
+
+    bool verbose;
 };
 
 int main()
@@ -196,11 +199,13 @@ int main()
     std::string digits = "123456789";
     int splits = 8;
     double goal = 10958;
+    bool verbose = false;
 
-    std::cout << "Digits: "; std::cin >> digits;
-    std::cout << "Splits: "; std::cin >> splits;
-    std::cout << "Goal: "  ; std::cin >> goal;
+    std::cout << "Digits: " ; std::cin >> digits;
+    std::cout << "Splits: " ; std::cin >> splits;
+    std::cout << "Goal: "   ; std::cin >> goal;
+    std::cout << "Verbose: "; std::cin >> verbose;
 
-    Solution solution(digits, splits, goal);
+    Solution solution(digits, splits, goal, verbose);
     solution.solve();
 }
