@@ -86,8 +86,6 @@ struct Solution
 
     auto split()
     {
-        // int length, leftLength;
-
         double v = root.getValue();
         double e = std::fabs(v - goal);
         if (e <= bestError)
@@ -102,8 +100,6 @@ struct Solution
         Try each leaf node with more than 1 digit
         that is not left of the last split point
         */
-        // int saveLastSplitOffset;        
-        // Node *node;
         for (int splitNode = 0; splitNode < nodesUsed; ++splitNode)
         {
             auto node = &nodes[splitNode];
